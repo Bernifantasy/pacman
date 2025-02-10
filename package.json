@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "docdash": "^2.0.2",
-    "eslint": "^9.18.0",
+    "eslint": "^9.20.0",
     "eslint-config": "^0.3.0",
     "eslint-config-manzdev": "^0.0.8",
     "jsdoc": "^4.0.4"
