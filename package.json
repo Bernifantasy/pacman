@@ -13,7 +13,7 @@
     "start": "webpack serve --open --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "lint": "eslint . --ext .js,.ts",
-    "generate:docs": "jsdoc -c jsdoc.json"
+    "generate-docs": "jsdoc -c jsdoc.json"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^11.0.0",
