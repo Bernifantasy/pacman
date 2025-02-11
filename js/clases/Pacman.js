@@ -5,7 +5,7 @@ import { map } from "../sketch.js";
 export class Pacman extends gameObject {
   constructor(row, column) {
     super(row, column);
-    this.direction = 1;
+    this.direction=1;
     this.speedPacman = IMAGE_SIZE;
   }
 
@@ -15,6 +15,7 @@ export class Pacman extends gameObject {
       this.columnNumber = newCol;
       this.coordXpixel = this.columnNumber * IMAGE_SIZE;
     }
+    this.direction=1;
   }
 
   moveLeft() {
@@ -23,6 +24,7 @@ export class Pacman extends gameObject {
       this.columnNumber = newCol;
       this.coordXpixel = this.columnNumber * IMAGE_SIZE;
     }
+    this.direction=3;
   }
 
   moveUp() {
@@ -31,6 +33,7 @@ export class Pacman extends gameObject {
       this.rowNumber = newRow;
       this.coordYpixel = this.rowNumber * IMAGE_SIZE;
     }
+    this.direction=4;
   }
 
   moveDown() {
@@ -39,6 +42,7 @@ export class Pacman extends gameObject {
       this.rowNumber = newRow;
       this.coordYpixel = this.rowNumber * IMAGE_SIZE;
     }
+    this.direction=2;
   }
 
   testCollideRock(roca){

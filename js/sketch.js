@@ -4,21 +4,41 @@ import {Pacman} from "./clases/Pacman.js";
 
 
 export const map = [
-  [1, 1, 1, 1],
-  [1, 2, 3, 1],
-  [1, 0, 0, 1],
-  [1, 1, 1, 1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,1],
+  [1,2,1,1,2,1,1,1,2,1,2,1,1,1,2,1,1,1,2,2,1],
+  [1,2,1,1,2,1,1,1,2,1,2,1,1,1,2,1,2,2,2,2,1],
+  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,1],
+  [1,2,1,1,2,2,2,2,1,1,1,2,2,2,2,1,2,1,1,2,1],
+  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+  [1,1,1,1,1,1,2,1,2,1,1,1,1,1,2,1,1,1,1,1,1],
+  [0,0,0,0,0,1,2,1,2,1,0,0,0,1,2,1,0,0,0,0,0],
+  [1,1,1,1,1,1,2,1,2,1,1,1,1,1,2,1,1,1,1,1,1],
+  [0,0,0,0,0,0,2,2,2,2,3,2,2,2,2,0,0,0,0,0,0],
+  [1,1,1,1,1,1,2,1,2,2,2,2,2,1,2,1,1,1,1,1,1],
+  [0,0,0,0,0,1,2,1,2,2,2,2,2,1,2,1,0,0,0,0,0],
+  [1,1,1,1,1,1,2,1,2,1,1,1,2,1,2,1,1,1,1,1,1],
+  [1,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,1],
+  [1,2,1,1,1,1,2,2,2,2,2,2,2,1,1,1,2,2,2,2,1],
+  [1,2,2,1,1,1,2,1,1,1,2,1,2,1,2,2,2,2,1,2,1],
+  [1,2,2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,1,2,1],
+  [1,2,2,2,2,1,2,2,1,2,1,1,1,1,1,1,1,2,1,2,1],
+  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
 ];
-const ROWS = 4;
-const COLUMNS = 4;
+const ROWS = 21;
+const COLUMNS = 21;
 export const IMAGE_SIZE = 32;
 export const WIDTH_CANVAS = ROWS * IMAGE_SIZE;
 export const HEIGHT_CANVAS = COLUMNS * IMAGE_SIZE;
 
 let imgRock;
 let imgFood;
-let imgPacMan;
+let imgPacRight;
+let imgPacLeft;
+let imgPacUp;
+let imgPacDown;
 let myPacman;
 
 const arrRocks = [];
@@ -28,7 +48,10 @@ const numberImagesLoaded = 0;
 function preload() {
   imgRock = loadImage("../img/roca.png", handleImage, handleError);
   imgFood = loadImage("../img/food.png", handleImage, handleError);
-  imgPacMan = loadImage("../img/pacRight.png", handleImage, handleError);
+  imgPacRight = loadImage("../img/pacRight.png", handleImage, handleError);
+  imgPacLeft = loadImage("../img/pacLeft.png", handleImage, handleError);
+  imgPacDown = loadImage("../img/pacDown.png", handleImage, handleError);
+  imgPacUp = loadImage("../img/pacUp.png", handleImage, handleError);
 }
 
 function handleError() {
@@ -60,7 +83,16 @@ function draw() {
   background(171, 248, 168);
   arrRocks.forEach((roca) => roca.showObject(imgRock));
   arrFood.forEach((food) => food.showObject(imgFood));
-  myPacman.showObject(imgPacMan);
+  if(myPacman.direction===1){
+    myPacman.showObject(imgPacRight);
+  }else if(myPacman.direction===2) {
+    myPacman.showObject(imgPacDown);
+  }else if(myPacman.direction===3){
+    myPacman.showObject(imgPacLeft);
+  }else if(myPacman.direction===4){
+    myPacman.showObject(imgPacUp);
+  }
+
 
 }
 
