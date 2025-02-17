@@ -1,6 +1,19 @@
 import {IMAGE_SIZE} from "../sketch.js";
 
+/**
+ * Clase base para todos los objetos del juego.
+ * Define la posición en la cuadrícula y en píxeles.
+ *
+ * @author moi
+ */
+
 export class gameObject{
+  /**
+   * Crea una instancia de gameObject.
+   *
+   * @param {number} row - Número de fila en la cuadrícula.
+   * @param {number} col - Número de columna en la cuadrícula.
+   */
 
   constructor(row,col)
   {
@@ -9,6 +22,13 @@ export class gameObject{
     this.coordYpixel= row * IMAGE_SIZE;
     this.coordXpixel= col * IMAGE_SIZE;
   }
+
+  /**
+   * Muestra el objeto en la pantalla con la imagen proporcionada.
+   *
+   * @param {p5.Image} img - Imagen del objeto a renderizar.
+   */
+
 
   showObject(img){
     if(this.coordXpixel == null || this.coordYpixel == null ){

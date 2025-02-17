@@ -1,34 +1,23 @@
 import {gameObject} from "./clases/gameObject.js";
 import {Pacman} from "./clases/Pacman.js";
+import {Food} from "./clases/Food.js";
 
 
 
 export const map = [
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,2,1],
-  [1,2,1,1,2,1,1,1,2,1,2,1,1,1,2,1,1,1,2,2,1],
-  [1,2,1,1,2,1,1,1,2,1,2,1,1,1,2,1,2,2,2,2,1],
-  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,1],
-  [1,2,1,1,2,2,2,2,1,1,1,2,2,2,2,1,2,1,1,2,1],
-  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-  [1,1,1,1,1,1,2,1,2,1,1,1,1,1,2,1,1,1,1,1,1],
-  [0,0,0,0,0,1,2,1,2,1,0,0,0,1,2,1,0,0,0,0,0],
-  [1,1,1,1,1,1,2,1,2,1,1,1,1,1,2,1,1,1,1,1,1],
-  [0,0,0,0,0,0,2,2,2,2,3,2,2,2,2,0,0,0,0,0,0],
-  [1,1,1,1,1,1,2,1,2,2,2,2,2,1,2,1,1,1,1,1,1],
-  [0,0,0,0,0,1,2,1,2,2,2,2,2,1,2,1,0,0,0,0,0],
-  [1,1,1,1,1,1,2,1,2,1,1,1,2,1,2,1,1,1,1,1,1],
-  [1,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,1],
-  [1,2,1,1,1,1,2,2,2,2,2,2,2,1,1,1,2,2,2,2,1],
-  [1,2,2,1,1,1,2,1,1,1,2,1,2,1,2,2,2,2,1,2,1],
-  [1,2,2,2,2,1,2,2,1,2,2,1,2,2,2,2,2,2,1,2,1],
-  [1,2,2,2,2,1,2,2,1,2,1,1,1,1,1,1,1,2,1,2,1],
-  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 2, 2, 2, 1, 2, 2, 2, 2, 1],
+  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
+  [1, 2, 1, 3, 2, 2, 1, 2, 2, 1],
+  [1, 2, 2, 2, 1, 2, 2, 3, 2, 1],
+  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
+  [1, 2, 1, 2, 2, 3, 1, 2, 2, 1],
+  [1, 2, 1, 1, 1, 1, 1, 3, 2, 1],
+  [1, 2, 2, 2, 2, 2, 2, 2, 4, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
-const ROWS = 21;
-const COLUMNS = 21;
+const ROWS = 10;
+const COLUMNS = 10;
 export const IMAGE_SIZE = 32;
 export const WIDTH_CANVAS = ROWS * IMAGE_SIZE;
 export const HEIGHT_CANVAS = COLUMNS * IMAGE_SIZE;
@@ -40,6 +29,7 @@ let imgPacLeft;
 let imgPacUp;
 let imgPacDown;
 let myPacman;
+let pacSound;
 
 const arrRocks = [];
 const arrFood = [];
@@ -52,6 +42,7 @@ function preload() {
   imgPacLeft = loadImage("../img/pacLeft.png", handleImage, handleError);
   imgPacDown = loadImage("../img/pacDown.png", handleImage, handleError);
   imgPacUp = loadImage("../img/pacUp.png", handleImage, handleError);
+  pacSound = loadSound("../img/move.mp3");
 }
 
 function handleError() {
@@ -70,10 +61,10 @@ function setup() {
         const roca = new gameObject(filaActual, columnActual);
         arrRocks.push(roca);
       } else if (map[filaActual][columnActual] === 2) {
-        const food = new gameObject(filaActual, columnActual);
+        const food = new Food(filaActual, columnActual);
         arrFood.push(food);
       }else if(map[filaActual][columnActual] === 3) {
-        myPacman = new Pacman(filaActual, columnActual);
+        myPacman = new Pacman(filaActual, columnActual,pacSound);
       }
     }
   }
@@ -83,17 +74,33 @@ function draw() {
   background(171, 248, 168);
   arrRocks.forEach((roca) => roca.showObject(imgRock));
   arrFood.forEach((food) => food.showObject(imgFood));
-  if(myPacman.direction===1){
-    myPacman.showObject(imgPacRight);
-  }else if(myPacman.direction===2) {
-    myPacman.showObject(imgPacDown);
-  }else if(myPacman.direction===3){
-    myPacman.showObject(imgPacLeft);
-  }else if(myPacman.direction===4){
-    myPacman.showObject(imgPacUp);
+
+  for (let i = 0; i < arrRocks.length; i++) {
+    myPacman.testCollideRock ( arrRocks[i]);
+  }
+  for (let i = 0; i < arrFood.length; i++) {
+    let resultTest = myPacman.testCollideFood(arrFood[i]);
+    if (resultTest) {
+      arrFood.splice(i, 1);
+    }
   }
 
+  switch(myPacman.direction){
+    case 1: //Move right
+      myPacman.showObject(imgPacRight);
+      break;
+    case 2: //Move up
+      myPacman.showObject(imgPacDown);
+      break;
+    case 3: //Move left
+      myPacman.showObject(imgPacLeft);
+      break
+    case 4: //Move down
+      myPacman.showObject(imgPacUp);
+      break;
+    default : myPacman.showObject(imgPacRight);
 
+  }
 }
 
 function keyPressed() {

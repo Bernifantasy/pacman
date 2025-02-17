@@ -1,66 +1,101 @@
-import {gameObject} from "./gameObject.js";
+import { gameObject } from "./gameObject.js";
 import { IMAGE_SIZE, WIDTH_CANVAS, HEIGHT_CANVAS } from "../sketch.js";
 import { map } from "../sketch.js";
 
+/**
+ * Clase Pacman.
+ *
+ * @extends gameObject
+ * @author moi
+ */
 export class Pacman extends gameObject {
-  constructor(row, column) {
+  /**
+   * Crea una instancia de Pacman.
+   *
+   * @param {number} row - Fila donde se encuentra Pacman en el mapa.
+   * @param {number} column - Columna donde se encuentra Pacman en el mapa.
+   * @param {Audio} sound - Objeto de sonido que se reproducirá al moverse.
+   */
+  constructor(row, column, sound) {
     super(row, column);
-    this.direction=1;
+    this.direction = 1;
     this.speedPacman = IMAGE_SIZE;
+    this.pacSound = sound;
   }
 
+  /**
+   * Mueve a Pacman hacia la derecha si es posible.
+   */
   moveRight() {
-    let newCol = this.columnNumber + 1;
-    if (newCol < map[0].length && map[this.rowNumber][newCol] !== 1) {
-      this.columnNumber = newCol;
-      this.coordXpixel = this.columnNumber * IMAGE_SIZE;
+    let newCol = this.coordXpixel + this.speedPacman;
+    if (newCol > 0) {
+      this.direction = 1;
+      this.coordXpixel = newCol;
     }
-    this.direction=1;
   }
 
+  /**
+   * Mueve a Pacman hacia la izquierda si es posible.
+   */
   moveLeft() {
-    let newCol = this.columnNumber - 1;
-    if (newCol >= 0 && map[this.rowNumber][newCol] !== 1) {
-      this.columnNumber = newCol;
-      this.coordXpixel = this.columnNumber * IMAGE_SIZE;
+    let newCol = this.coordXpixel - this.speedPacman;
+    if (newCol > 0) {
+      this.direction = 3;
+      this.coordXpixel = newCol;
     }
-    this.direction=3;
   }
 
+  /**
+   * Mueve a Pacman hacia arriba si es posible.
+   */
   moveUp() {
-    let newRow = this.rowNumber - 1;
-    if (newRow >= 0 && map[newRow][this.columnNumber] !== 1) {
-      this.rowNumber = newRow;
-      this.coordYpixel = this.rowNumber * IMAGE_SIZE;
+    let newRow = this.coordYpixel - this.speedPacman;
+    if (newRow > 0) {
+      this.direction = 4;
+      this.coordYpixel = newRow;
     }
-    this.direction=4;
   }
 
+  /**
+   * Mueve a Pacman hacia abajo si es posible.
+   */
   moveDown() {
-    let newRow = this.rowNumber + 1;
-    if (newRow < map.length && map[newRow][this.columnNumber] !== 1) {
-      this.rowNumber = newRow;
-      this.coordYpixel = this.rowNumber * IMAGE_SIZE;
+    let newRow = this.coordYpixel + this.speedPacman;
+    if (newRow > 0) {
+      this.direction = 2;
+      this.coordYpixel = newRow;
     }
-    this.direction=2;
   }
 
-  testCollideRock(roca){
-    let distancia = dist(this.coordXPixels, this.coordYPixels, roca.coordXPixels, roca.coordYPixels);
-
-    if (distancia<IMAGE_SIZE){
-      switch(this.direction){
-        case 1: this.coordXPixels = this.coordXPixels - this.speedPacman;
-          break;
-        case 2: this.coordYPixels = this.coordYPixels + this.speedPacman;
-          break;
-        case 3: this.coordXPixels = this.coordXPixels + this.speedPacman;
-          break;
-        case 4: this.coordYPixels = this.coordYPixels - this.speedPacman;
-          break;
-      }
-    }else {
-      console.log("");
+  /**
+   * Verifica si Pacman colisiona con una roca.
+   * Si la colisión ocurre, Pacman vuelve a su posición inicial.
+   *
+   * @param {Object} roca - Objeto que representa la roca en el mapa.
+   */
+  testCollideRock(roca) {
+    let distancia = dist(this.coordXpixel, this.coordYpixel, roca.coordXpixel, roca.coordYpixel);
+    if (distancia < IMAGE_SIZE) {
+      this.spawnPacman();
     }
+  }
+
+  /**
+   * Verifica si Pacman recoge una comida.
+   *
+   * @param {Object} food - Objeto que representa la comida en el mapa.
+   * @returns {boolean} `true` si Pacman ha recogido la comida, `false` en caso contrario.
+   */
+  testCollideFood(food) {
+    let distancia = dist(this.coordXpixel, this.coordYpixel, food.coordXpixel, food.coordYpixel);
+    return distancia < IMAGE_SIZE;
+  }
+
+  /**
+   * Restablece la posición de Pacman a la inicial en el mapa.
+   */
+  spawnPacman() {
+    this.coordXpixel = 7 * 32;
+    this.coordYpixel = 7 * 32;
   }
 }

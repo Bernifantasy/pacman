@@ -1,0 +1,26 @@
+{
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/sketch.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "css/style.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "/docs/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/docs/(.*)",
+      "dest": "/docs/$1"
+    }
+  ]
+}

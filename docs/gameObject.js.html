@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>gameObject.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,31 +35,61 @@
 
 <div id="main">
     
+    <h1 class="page-title">gameObject.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {IMAGE_SIZE} from "../sketch.js";
+
+/**
+ * Clase base para todos los objetos del juego.
+ * Define la posición en la cuadrícula y en píxeles.
+ *
+ * @author moi
+ */
+
+export class gameObject{
+  /**
+   * Crea una instancia de gameObject.
+   *
+   * @param {number} row - Número de fila en la cuadrícula.
+   * @param {number} col - Número de columna en la cuadrícula.
+   */
+
+  constructor(row,col)
+  {
+    this.rowNumber = row;
+    this.columnNumber = col;
+    this.coordYpixel= row * IMAGE_SIZE;
+    this.coordXpixel= col * IMAGE_SIZE;
+  }
+
+  /**
+   * Muestra el objeto en la pantalla con la imagen proporcionada.
+   *
+   * @param {p5.Image} img - Imagen del objeto a renderizar.
+   */
 
 
-    <section class="package">
-        <h3> </h3>		
+  showObject(img){
+    if(this.coordXpixel == null || this.coordYpixel == null ){
+      this.coordXpixel = this.rowNumber * IMAGE_SIZE;
+      this.coordYpixel = this.columnNumber * IMAGE_SIZE;
+    }
+    image(img, this.coordXpixel, this.coordYpixel);
+  }
+
+}
+
+</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
 
 
