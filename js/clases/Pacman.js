@@ -28,7 +28,7 @@ export class Pacman extends gameObject {
    */
   moveRight() {
     let newCol = this.coordXpixel + this.speedPacman;
-    if (newCol > 0) {
+    if (newCol >= 0) {
       this.direction = 1;
       this.coordXpixel = newCol;
     }
@@ -39,7 +39,7 @@ export class Pacman extends gameObject {
    */
   moveLeft() {
     let newCol = this.coordXpixel - this.speedPacman;
-    if (newCol > 0) {
+    if (newCol >= 0) {
       this.direction = 3;
       this.coordXpixel = newCol;
     }
@@ -50,7 +50,7 @@ export class Pacman extends gameObject {
    */
   moveUp() {
     let newRow = this.coordYpixel - this.speedPacman;
-    if (newRow > 0) {
+    if (newRow >= 0) {
       this.direction = 4;
       this.coordYpixel = newRow;
     }
@@ -61,7 +61,7 @@ export class Pacman extends gameObject {
    */
   moveDown() {
     let newRow = this.coordYpixel + this.speedPacman;
-    if (newRow > 0) {
+    if (newRow >= 0) {
       this.direction = 2;
       this.coordYpixel = newRow;
     }
@@ -75,7 +75,7 @@ export class Pacman extends gameObject {
    */
   testCollideRock(roca) {
     let distancia = dist(this.coordXpixel, this.coordYpixel, roca.coordXpixel, roca.coordYpixel);
-    if (distancia < IMAGE_SIZE) {
+    if (distancia <  IMAGE_SIZE) {
       this.spawnPacman();
     }
   }
@@ -95,7 +95,7 @@ export class Pacman extends gameObject {
    * Restablece la posición de Pacman a la inicial en el mapa.
    */
   spawnPacman() {
-    this.coordXpixel = 7 * 32;
-    this.coordYpixel = 7 * 32;
+    this.coordXpixel = 32;
+    this.coordYpixel = 32;
   }
 }

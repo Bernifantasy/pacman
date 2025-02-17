@@ -3,24 +3,37 @@ import {Pacman} from "./clases/Pacman.js";
 import {Food} from "./clases/Food.js";
 
 
-
+/*
 export const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 3, 2, 2, 1, 2, 2, 2, 2, 1],
+  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
+  [1, 2, 1, 2, 2, 2, 1, 2, 2, 1],
   [1, 2, 2, 2, 1, 2, 2, 2, 2, 1],
   [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
-  [1, 2, 1, 3, 2, 2, 1, 2, 2, 1],
-  [1, 2, 2, 2, 1, 2, 2, 3, 2, 1],
-  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
-  [1, 2, 1, 2, 2, 3, 1, 2, 2, 1],
-  [1, 2, 1, 1, 1, 1, 1, 3, 2, 1],
-  [1, 2, 2, 2, 2, 2, 2, 2, 4, 1],
+  [1, 2, 1, 2, 2, 2, 1, 2, 2, 1],
+  [1, 2, 1, 1, 1, 1, 1, 2, 2, 1],
+  [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+];
+*/
+export const map = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 3, 2, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+  [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+  [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+  [1, 0, 1, 1, 1, 1, 1, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 const ROWS = 10;
 const COLUMNS = 10;
 export const IMAGE_SIZE = 32;
-export const WIDTH_CANVAS = ROWS * IMAGE_SIZE;
-export const HEIGHT_CANVAS = COLUMNS * IMAGE_SIZE;
+export const WIDTH_CANVAS = COLUMNS * IMAGE_SIZE;
+export const HEIGHT_CANVAS = ROWS * IMAGE_SIZE;
 
 let imgRock;
 let imgFood;
@@ -72,16 +85,14 @@ function setup() {
 
 function draw() {
   background(171, 248, 168);
-  arrRocks.forEach((roca) => roca.showObject(imgRock));
-  arrFood.forEach((food) => food.showObject(imgFood));
+  arrRocks.forEach(rock => rock.showObject(imgRock));
+  arrFood.forEach(food => food.showObject(imgFood));
+  arrRocks.forEach(rock => myPacman.testCollideRock(rock));
 
-  for (let i = 0; i < arrRocks.length; i++) {
-    myPacman.testCollideRock ( arrRocks[i]);
-  }
-  for (let i = 0; i < arrFood.length; i++) {
-    let resultTest = myPacman.testCollideFood(arrFood[i]);
-    if (resultTest) {
+  for (let i = arrFood.length - 1; i >= 0; i--) {
+    if (myPacman.testCollideFood(arrFood[i])) {
       arrFood.splice(i, 1);
+      setTimeout(FinishGame, 200);
     }
   }
 
@@ -99,8 +110,8 @@ function draw() {
       myPacman.showObject(imgPacUp);
       break;
     default : myPacman.showObject(imgPacRight);
-
   }
+
 }
 
 function keyPressed() {
@@ -114,6 +125,32 @@ function keyPressed() {
     myPacman.moveDown();
   }
 }
+
+function FinishGame() {
+  if (arrFood.length === 0){
+    noLoop();
+    let confirmation =confirm("Fi del joc, has guanyat. Desitja jugar una altra partida ?");
+    if( confirmation) {
+      restartGame();
+    } else {
+      alert("Gracies per jugar");
+    }
+  }
+}
+
+function restartGame() {
+
+  arrRocks.length = 0;
+  arrFood.length = 0;
+
+  setup();
+
+  loop();
+
+
+}
+
+
 
 globalThis.setup = setup;
 globalThis.draw = draw;
