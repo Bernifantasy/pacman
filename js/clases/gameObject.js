@@ -21,6 +21,7 @@ export class gameObject{
     this.columnNumber = col;
     this.coordYpixel= row * IMAGE_SIZE;
     this.coordXpixel= col * IMAGE_SIZE;
+    
   }
 
   /**
