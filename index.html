@@ -20,14 +20,45 @@
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
   <script type="module" src="js/libraries/p5/p5.js"></script>
   <script type="module" src="js/libraries/p5/addons/p5.sound.js"></script>
   <script type="module" src="js/sketch.js"></script>
 
+  <script>
+    function showInfo() {
+      const info = `
+                Navegador: ${navigator.userAgent}\n
+                Versió: ${navigator.appVersion}\n
+                Sistema Operatiu: ${navigator.platform}\n
+                Última Modificació: ${document.lastModified}\n
+                Idioma: ${navigator.language}\n
+                Hostname: ${window.location.href}
+            `;
+      alert(info);
+    }
+  </script>
+
 </head>
 
 <body>
-  <div id="sketch-pacman"></div>
+
+  <header class="w3-container w3-light-grey w3-center w3-padding-32">
+    <h1>Benvingut al Joc de Spongebob</h1>
+    <div class="w3-margin-top">
+      <button class="w3-button w3-green w3-round w3-large" onclick="startGame()">Start Game</button>
+      <button class="w3-button w3-blue w3-round w3-large" onclick="alert('Utilitza les fletxes per moure i recull la menjar!')">Help</button>
+      <button class="w3-button w3-orange w3-round w3-large" onclick="showInfo()">Informació</button>
+      <button class="w3-button w3-purple w3-round w3-large" onclick="alert('Autor: [El Teu Nom] \nImatges: [Fonts] \nSons: [Fonts]')">Crèdits</button>
+    </div>
+  </header>
+
+  <div class="w3-center w3-padding w3-margin" id="sketch-pacman"></div>
+
+  <footer class="w3-container w3-teal w3-center w3-padding-16">
+    <p>&copy; 2025 - Joc de Spongebob | Creat per [El Teu Nom]</p>
+  </footer>
 
 </body>
 
