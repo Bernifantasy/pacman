@@ -1,4 +1,3 @@
-import {gameObject} from "./clases/gameObject.js";
 import {Burger} from "./clases/Burger.js";
 import {SpongeBob} from "./clases/SpongeBob.js";
 import {Roca} from "./clases/Roca.js";
@@ -47,6 +46,8 @@ let restaurant;
 let myBob;
 let BobSound;
 let key=0;
+let startTimeGame=0;
+let timer=0;
 
 const arrRocks = [];
 const arrBurger = [];
@@ -91,6 +92,7 @@ function setup() {
       }
     }
   }
+  startTimeGame = millis();
 }
 
 function draw() {
@@ -105,6 +107,7 @@ function draw() {
       if (myBob.testCollideBurger(arrBurger[i])) {
         arrBurger.splice(i, 1);
         key = 1;
+        myBob.scoreBob = myBob.scoreBob + 10;
       }
     }
 
