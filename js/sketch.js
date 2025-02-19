@@ -1,6 +1,8 @@
 import {gameObject} from "./clases/gameObject.js";
-import {Food} from "./clases/Food.js";
+import {Burger} from "./clases/Burger.js";
 import {SpongeBob} from "./clases/SpongeBob.js";
+import {Roca} from "./clases/Roca.js";
+import {Bar} from "./clases/Bar.js";
 
 let gameStarted = false;
 
@@ -37,30 +39,28 @@ export const WIDTH_CANVAS = COLUMNS * IMAGE_SIZE;
 export const HEIGHT_CANVAS = ROWS * IMAGE_SIZE;
 
 let imgRock;
-let imgFood;
+let imgBurger;
 let imgBobUP;
 let imgBobRIGHT;
-let imgBobDOWN;
 let imgBobLEFT;
 let restaurant;
 let myBob;
-let pacSound;
+let BobSound;
 let key=0;
 
 const arrRocks = [];
-const arrFood = [];
+const arrBurger = [];
 const arrBar = [];
 const numberImagesLoaded = 0;
 
 function preload() {
   imgRock = loadImage("../img/roca.png", handleImage, handleError);
-  imgFood = loadImage("../img/food.png", handleImage, handleError);
+  imgBurger = loadImage("../img/food.png", handleImage, handleError);
   imgBobUP = loadImage("../img/bobUP.png", handleImage, handleError);
   imgBobLEFT = loadImage("../img/bobLEFT.png", handleImage, handleError);
   imgBobRIGHT = loadImage("../img/bobRIGHT.png", handleImage, handleError);
-  imgBobDOWN = loadImage("../img/bobDOWN.png", handleImage, handleError);
   restaurant = loadImage("../img/bar.png", handleImage, handleError);
-  pacSound = loadSound("../img/move.mp3");
+  BobSound = loadSound("../img/move.mp3");
 }
 
 function handleError() {
@@ -77,15 +77,15 @@ function setup() {
     for (let filaActual = 0; filaActual < ROWS; filaActual++) {
       for (let columnActual = 0; columnActual < COLUMNS; columnActual++) {
         if (map[filaActual][columnActual] === 1) {
-          const roca = new gameObject(filaActual, columnActual);
+          const roca = new Roca(filaActual, columnActual);
           arrRocks.push(roca);
         } else if (map[filaActual][columnActual] === 2) {
-          const food = new Food(filaActual, columnActual);
-          arrFood.push(food);
+          const burger = new Burger(filaActual, columnActual);
+          arrBurger.push(burger);
         } else if (map[filaActual][columnActual] === 3) {
-          myBob = new SpongeBob(filaActual, columnActual, pacSound);
+          myBob = new SpongeBob(filaActual, columnActual, BobSound);
         } else if (map[filaActual][columnActual] === 4) {
-          const bar = new gameObject(filaActual, columnActual);
+          const bar = new Bar(filaActual, columnActual);
           arrBar.push(bar);
         }
       }
@@ -97,13 +97,13 @@ function draw() {
   if (gameStarted) {
     background(171, 248, 168);
     arrRocks.forEach(rock => rock.showObject(imgRock));
-    arrFood.forEach(food => food.showObject(imgFood));
+    arrBurger.forEach(burger => burger.showObject(imgBurger));
     arrBar.forEach(bar => bar.showObject(restaurant));
     arrRocks.forEach(rock => myBob.testCollideRock(rock));
 
-    for (let i = arrFood.length - 1; i >= 0; i--) {
-      if (myBob.testCollideFood(arrFood[i])) {
-        arrFood.splice(i, 1);
+    for (let i = arrBurger.length - 1; i >= 0; i--) {
+      if (myBob.testCollideBurger(arrBurger[i])) {
+        arrBurger.splice(i, 1);
         key = 1;
       }
     }
@@ -122,7 +122,7 @@ function draw() {
         myBob.showObject(imgBobRIGHT);
         break;
       case 2: //Move up
-        myBob.showObject(imgBobDOWN);
+        myBob.showObject(imgBobUP);
         break;
       case 3: //Move left
         myBob.showObject(imgBobLEFT);
@@ -152,7 +152,7 @@ function keyPressed() {
 function FinishGame() {
   noLoop();
 
-  let message = arrFood.length === 0 ? "Has guanyat. Desitja jugar una altra partida?" : "Has perdut. Desitja jugar una altra partida?";
+  let message = arrBurger.length === 0 ? "Has guanyat. Desitja jugar una altra partida?" : "Has perdut. Desitja jugar una altra partida?";
 
   if (confirm(message)) {
     restartGame();
@@ -163,20 +163,15 @@ function FinishGame() {
 
 
 function restartGame() {
-
   arrRocks.length = 0;
-  arrFood.length = 0;
-
+  arrBurger.length = 0;
   setup();
-
   loop();
-
-
 }
 function startGame() {
   gameStarted = true;
-  loop();
   setup();
+  loop();
 }
 
 

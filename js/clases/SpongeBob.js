@@ -8,7 +8,7 @@ export class SpongeBob extends gameObject {
     super(row, column);
     this.direction = 1;
     this.speedBob = IMAGE_SIZE;
-    this.bobSound = sound;
+    this.BobSound = sound;
     this.scoreBob = 0;
   }
 
@@ -21,6 +21,7 @@ export class SpongeBob extends gameObject {
       this.direction = 1;
       this.coordXpixel = newCol;
     }
+    this.BobSound.play();
   }
 
   /**
@@ -32,6 +33,7 @@ export class SpongeBob extends gameObject {
       this.direction = 3;
       this.coordXpixel = newCol;
     }
+    this.BobSound.play();
   }
 
   /**
@@ -43,6 +45,7 @@ export class SpongeBob extends gameObject {
       this.direction = 4;
       this.coordYpixel = newRow;
     }
+    this.BobSound.play();
   }
 
   /**
@@ -54,6 +57,7 @@ export class SpongeBob extends gameObject {
       this.direction = 2;
       this.coordYpixel = newRow;
     }
+    this.BobSound.play();
   }
 
   /**
@@ -75,7 +79,7 @@ export class SpongeBob extends gameObject {
    * @param {Object} food - Objeto que representa la comida en el mapa.
    * @returns {boolean} `true` si Spongebob ha recogido la comida, `false` en caso contrario.
    */
-  testCollideFood(food) {
+  testCollideBurger(food) {
     let distancia = dist(this.coordXpixel, this.coordYpixel, food.coordXpixel, food.coordYpixel);
     return distancia < IMAGE_SIZE;
   }

@@ -26,17 +26,64 @@
   <script type="module" src="js/libraries/p5/addons/p5.sound.js"></script>
   <script type="module" src="js/sketch.js"></script>
 
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+  </style>
+
   <script>
-    function showInfo() {
-      const info = `
-                Navegador: ${navigator.userAgent}\n
-                Versió: ${navigator.appVersion}\n
-                Sistema Operatiu: ${navigator.platform}\n
-                Última Modificació: ${document.lastModified}\n
-                Idioma: ${navigator.language}\n
-                Hostname: ${window.location.href}
-            `;
-      alert(info);
+    function showMessage(type) {
+      const messageBox = document.getElementById("message-box");
+      const messageText = document.getElementById("message-text");
+      const messageIcon = document.getElementById("message-icon");
+
+      let message = "";
+      let icon = "";
+
+      switch (type) {
+        case "help":
+          message = "🔹 Utilitza les fletxes per moure i recull la Burger Cangreburger per entrar al Crustacio Crujiente!";
+          icon = "❓";
+          break;
+        case "info":
+          message = `
+            <strong>ℹ️ Informació del sistema:</strong><br><br>
+            <strong>Navegador:</strong> ${navigator.userAgent} <br>
+            <strong>Versió del navegador:</strong> ${navigator.appVersion} <br>
+            <strong>Sistema operatiu:</strong> ${navigator.platform} <br>
+            <strong>Última modificació:</strong> ${document.lastModified} <br>
+            <strong>Idioma:</strong> ${navigator.language} <br>
+            <strong>Hostname (URL):</strong> ${window.location.href}
+          `;
+          icon = "ℹ️";
+          break;
+        case "credits":
+          message = "👨‍💻 Autor: Bernat Alvarez Borrell<br>📅 Data: 25/02/2025<br>📚 Matèria: M06: Desenvolupament Web Entorn Client";
+          icon = "🏆";
+          break;
+        default:
+          message = "";
+          messageBox.style.display = "none";
+          return;
+      }
+
+      messageText.innerHTML = message;
+      messageIcon.innerHTML = icon;
+
+      messageBox.className = `w3-panel w3-center w3-padding w3-round w3-margin-top w3-light-grey`;
+      messageBox.style.display = "block";
     }
   </script>
 
@@ -47,14 +94,25 @@
   <header class="w3-container w3-yellow w3-center w3-padding-32">
     <h1>Benvingut al Joc de Spongebob</h1>
     <div class="w3-margin-top">
-      <button class="w3-button w3-green w3-round w3-large" onclick="startGame()">Start Game</button>
-      <button class="w3-button w3-blue w3-round w3-large" onclick="alert('Utilitza les fletxes per moure i recull la menjar!')">Help</button>
-      <button class="w3-button w3-orange w3-round w3-large" onclick="showInfo()">Informació</button>
-      <button class="w3-button w3-purple w3-round w3-large" onclick="alert('Autor: Bernat Alvarez Borrell \nData: 25/02/2025 \nMateria: M06: Desenvolupament Web Entorn Client')">Crèdits</button>
+      <button class="w3-button w3-green w3-round w3-large" onclick="showMessage(''); startGame();">Start Game</button>
+      <button class="w3-button w3-blue w3-round w3-large" onclick="showMessage('help')">Help</button>
+      <button class="w3-button w3-orange w3-round w3-large" onclick="showMessage('info')">Informació</button>
+      <button class="w3-button w3-purple w3-round w3-large" onclick="showMessage('credits')">Crèdits</button>
     </div>
-  </header>
 
-  <div class="w3-center w3-padding w3-margin" id="sketch-pacman"></div>
+  </header>
+  <main>
+
+    <div id="message-box" class="w3-panel w3-padding w3-round w3-margin-top w3-center" style="display: none;">
+      <span id="message-icon" class=" w3-center w3-xlarge"></span>
+      <p id="message-text" class="w3-center"></p>
+    </div>
+
+    <div class="w3-center w3-padding w3-margin" id="sketch-pacman"></div>
+
+  </main>
+
+
 
   <footer class="w3-container w3-yellow w3-center w3-padding-16">
     <p>&copy; 2025 - Joc de Spongebob | Creat per Bernat Alvarez Borrell</p>
