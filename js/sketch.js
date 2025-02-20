@@ -2,24 +2,12 @@ import {Burger} from "./clases/Burger.js";
 import {SpongeBob} from "./clases/SpongeBob.js";
 import {Roca} from "./clases/Roca.js";
 import {Bar} from "./clases/Bar.js";
-import {ErrorBob} from "./clases/errorBob";
+import {ErrorBob} from "./clases/errorBob.js";
+import {configGame} from "./configGame.js";
 
 let gameStarted = false;
-
+let gameFinished = false;
 /*
-export const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 4, 2, 2, 1, 2, 2, 2, 2, 1],
-  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
-  [1, 2, 1, 2, 2, 2, 1, 2, 2, 1],
-  [1, 2, 2, 2, 1, 2, 2, 2, 2, 1],
-  [1, 2, 1, 2, 1, 2, 1, 2, 2, 1],
-  [1, 2, 1, 2, 2, 2, 1, 2, 2, 1],
-  [1, 2, 1, 1, 1, 1, 1, 2, 2, 1],
-  [1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
-*/
 export const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 3, 2, 4, 1, 0, 0, 0, 0, 1],
@@ -32,11 +20,15 @@ export const map = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
+
+
 const ROWS = 10;
 const COLUMNS = 10;
 export const IMAGE_SIZE = 32;
 export const WIDTH_CANVAS = COLUMNS * IMAGE_SIZE;
 export const HEIGHT_CANVAS = ROWS * IMAGE_SIZE;
+
+ */
 
 let imgRock;
 let imgBurger;
@@ -47,13 +39,12 @@ let restaurant;
 let myBob;
 let BobSound;
 let key=0;
-let startTimeGame=0;
-let timer=0;
+//let startTimeGame=0;
+//let timer=0;
 
 const arrRocks = [];
 const arrBurger = [];
 const arrBar = [];
-const numberImagesLoaded = 0;
 
 function preload() {
   imgRock = loadImage("../img/roca.png", handleImage, handleError);
@@ -67,7 +58,7 @@ function preload() {
 
 function handleError() {
   let error = new ErrorBob(10, "Imatge no carregada");
-  error.toString();
+  error.showError();
 
 }
 
@@ -78,37 +69,39 @@ function handleImage() {
 
 function handleSoundError() {
   let error = new ErrorBob(10, "So no carregat");
-  error.toString();
+  error.showError();
 }
 
 function setup() {
   if (gameStarted) {
-    createCanvas(WIDTH_CANVAS, HEIGHT_CANVAS).parent("sketch-pacman");
-    for (let filaActual = 0; filaActual < ROWS; filaActual++) {
-      for (let columnActual = 0; columnActual < COLUMNS; columnActual++) {
-        if (map[filaActual][columnActual] === 1) {
+    createCanvas(configGame.WIDTH_CANVAS, configGame.HEIGHT_CANVAS).parent("sketch-pacman");
+    for (let filaActual = 0; filaActual < configGame.ROWS; filaActual++) {
+      for (let columnActual = 0; columnActual < configGame.COLUMNS; columnActual++) {
+        let mapa = configGame.map[filaActual][columnActual];
+        if (mapa === 1) {
           const roca = new Roca(filaActual, columnActual);
           arrRocks.push(roca);
-        } else if (map[filaActual][columnActual] === 2) {
+        } else if (mapa=== 2) {
           const burger = new Burger(filaActual, columnActual);
           arrBurger.push(burger);
-        } else if (map[filaActual][columnActual] === 3) {
+        } else if (mapa === 3) {
           myBob = new SpongeBob(filaActual, columnActual, BobSound);
-        } else if (map[filaActual][columnActual] === 4) {
+        } else if (mapa === 4) {
           const bar = new Bar(filaActual, columnActual);
           arrBar.push(bar);
-        }else{
+        }else if (mapa !== 1 && mapa !== 2 && mapa !== 3 && mapa !== 4 && mapa !== 0) {
           let error = new ErrorBob(1, "Objecte no definit");
-          error.toString();
+          error.showError();
         }
       }
     }
-    startTimeGame = millis();
+    //startTimeGame = millis();
   }
 
 }
 
 function draw() {
+
   if (gameStarted) {
     background(171, 248, 168);
     arrRocks.forEach(rock => rock.showObject(imgRock));
@@ -132,6 +125,13 @@ function draw() {
         setTimeout(FinishGame, 50);
       }
     }
+/*
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    timer = parseInt( millis() - startTimeGame);
+    text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
+
+ */
 
     switch (myBob.direction) {
       case 1: //Move right
@@ -165,28 +165,35 @@ function keyPressed() {
   }
   else{
     let error= new ErrorBob(11, "Tecla no valida");
-    error.toString();
+    error.showError();
   }
 }
 
 function FinishGame() {
+  if(gameFinished) return;
+  gameFinished = true;
   noLoop();
+
+  const finalDiv = document.getElementById("final");
+  const finalMessage = document.getElementById("final_message");
 
   let message = arrBurger.length === 0 ? "Has guanyat. Desitja jugar una altra partida?" : "Has perdut. Desitja jugar una altra partida?";
 
-  if (confirm(message)) {
-    restartGame();
-  } else {
-    alert("Gràcies per jugar");
-  }
+  finalMessage.textContent = message;
+  finalDiv.style.display = "block";
+
+  document.getElementById("restartBtn").addEventListener("click", restartGame);
+  document.getElementById("exitBtn").addEventListener("click", () => {window.location.href = "../index.html";});
 }
 
 
 function restartGame() {
+  gameFinished = false;
   arrRocks.length = 0;
   arrBurger.length = 0;
-  setup();
-  loop();
+  arrBar.length = 0;
+  startGame();
+  document.getElementById("final").style.display = "none";
 }
 function startGame() {
   gameStarted = true;

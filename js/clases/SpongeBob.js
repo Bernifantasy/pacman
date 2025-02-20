@@ -1,15 +1,16 @@
 import { gameObject } from "./gameObject.js";
-import { IMAGE_SIZE } from "../sketch.js";
-
+import {configGame} from "../configGame.js";
+const { IMAGE_SIZE,SPEED_BOB, LIVES_BOB} = configGame;
 
 export class SpongeBob extends gameObject {
 
   constructor(row, column, sound) {
     super(row, column);
     this.direction = 1;
-    this.speedBob = IMAGE_SIZE;
+    this.speedBob = SPEED_BOB;
     this.BobSound = sound;
     this.scoreBob = 0;
+    this.BobLives= LIVES_BOB;
   }
 
   /**
@@ -69,6 +70,7 @@ export class SpongeBob extends gameObject {
   testCollideRock(roca) {
     let distancia = dist(this.coordXpixel, this.coordYpixel, roca.coordXpixel, roca.coordYpixel);
     if (distancia <  IMAGE_SIZE) {
+      this.BobLives--;
       this.spawnBob();
     }
   }

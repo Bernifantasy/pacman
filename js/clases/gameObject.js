@@ -1,11 +1,11 @@
-import {IMAGE_SIZE} from "../sketch.js";
-
 /**
  * Clase base para todos los objetos del juego.
  * Define la posición en la cuadrícula y en píxeles.
  *
  * @author moi
  */
+import {configGame} from "../configGame.js";
+
 
 export class gameObject{
   /**
@@ -19,8 +19,8 @@ export class gameObject{
   {
     this.rowNumber = row;
     this.columnNumber = col;
-    this.coordYpixel= row * IMAGE_SIZE;
-    this.coordXpixel= col * IMAGE_SIZE;
+    this.coordYpixel= row * configGame.IMAGE_SIZE;
+    this.coordXpixel= col * configGame.IMAGE_SIZE;
 
   }
 

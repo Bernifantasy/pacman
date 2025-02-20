@@ -4,7 +4,14 @@ export class ErrorBob extends Error {
     this.code = code;
   }
 
-  toString() {
-    console.log("S'ha produit un error: \n ncodi" +this.codi + "Missatge: " + this.message + "Pila: " + this.stack);
+  showError(){
+    const errorBox = document.getElementById('errorBox');
+    const errorMessage = document.getElementById('errorMessage');
+
+    errorMessage.textContent = this.message;
+    errorBox.style.display = 'block';
+
+    setTimeout(() => {errorBox.style.display = 'none';}, 1000);
+
   }
 }
