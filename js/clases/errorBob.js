@@ -1,4 +1,4 @@
-export class ErrorPac extends Error {
+export class ErrorBob extends Error {
   constructor(code,message) {
     super(message);
     this.code = code;

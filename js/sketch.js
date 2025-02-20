@@ -2,6 +2,7 @@ import {Burger} from "./clases/Burger.js";
 import {SpongeBob} from "./clases/SpongeBob.js";
 import {Roca} from "./clases/Roca.js";
 import {Bar} from "./clases/Bar.js";
+import {ErrorBob} from "./clases/errorBob";
 
 let gameStarted = false;
 
@@ -61,15 +62,23 @@ function preload() {
   imgBobLEFT = loadImage("../img/bobLEFT.png", handleImage, handleError);
   imgBobRIGHT = loadImage("../img/bobRIGHT.png", handleImage, handleError);
   restaurant = loadImage("../img/bar.png", handleImage, handleError);
-  BobSound = loadSound("../img/move.mp3");
+  BobSound = loadSound("../img/move.mp3", null, handleSoundError);
 }
 
 function handleError() {
-  console.error("Error carregar imatge");
+  let error = new ErrorBob(10, "Imatge no carregada");
+  error.toString();
+
 }
 
 function handleImage() {
-  console.error("Images carregada correctament");
+  //No fico res, per no mostrar coses a la consola, per a que el public no ho vegi.
+
+}
+
+function handleSoundError() {
+  let error = new ErrorBob(10, "So no carregat");
+  error.toString();
 }
 
 function setup() {
@@ -88,11 +97,15 @@ function setup() {
         } else if (map[filaActual][columnActual] === 4) {
           const bar = new Bar(filaActual, columnActual);
           arrBar.push(bar);
+        }else{
+          let error = new ErrorBob(1, "Objecte no definit");
+          error.toString();
         }
       }
     }
+    startTimeGame = millis();
   }
-  startTimeGame = millis();
+
 }
 
 function draw() {
@@ -149,6 +162,10 @@ function keyPressed() {
     myBob.moveUp();
   }else if(keyCode === DOWN_ARROW) {
     myBob.moveDown();
+  }
+  else{
+    let error= new ErrorBob(11, "Tecla no valida");
+    error.toString();
   }
 }
 
