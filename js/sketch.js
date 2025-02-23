@@ -154,18 +154,19 @@ function draw() {
 }
 
 function keyPressed() {
-  if(keyCode === RIGHT_ARROW) {
-    myBob.moveRight();
-  }else if(keyCode === LEFT_ARROW) {
-    myBob.moveLeft();
-  }else if(keyCode === UP_ARROW) {
-    myBob.moveUp();
-  }else if(keyCode === DOWN_ARROW) {
-    myBob.moveDown();
-  }
-  else{
-    let error= new ErrorBob(11, "Tecla no valida");
-    error.showError();
+  if (gameStarted) {
+    if (keyCode === RIGHT_ARROW) {
+      myBob.moveRight();
+    } else if (keyCode === LEFT_ARROW) {
+      myBob.moveLeft();
+    } else if (keyCode === UP_ARROW) {
+      myBob.moveUp();
+    } else if (keyCode === DOWN_ARROW) {
+      myBob.moveDown();
+    } else {
+      let error = new ErrorBob(11, "Tecla no valida");
+      error.showError();
+    }
   }
 }
 
@@ -197,6 +198,7 @@ function restartGame() {
 }
 function startGame() {
   gameStarted = true;
+  document.getElementById("info").style.display = "none";
   setup();
   loop();
 }

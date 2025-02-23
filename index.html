@@ -32,6 +32,15 @@
       display: flex;
       flex-direction: column;
     }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    img{
+      height: 100px;
+    }
     main {
       flex: 1;
     }
@@ -57,8 +66,8 @@
       display: none;
       position: absolute;
       top:35%;
-      left:39%;
-      background-color: red;
+      left:37%;
+      background-color: #9981ee;
       color: white;
       text-align: center;
       z-index: 100;
@@ -95,7 +104,7 @@
           icon = "ℹ️";
           break;
         case "credits":
-          message = "👨‍💻 Autor: Bernat Alvarez Borrell<br>📅 Data: 25/02/2025<br>📚 Matèria: M06: Desenvolupament Web Entorn Client";
+          message = "👨‍💻 <strong>Autor:</strong> Bernat Alvarez Borrell<br>📅 <strong>Data:</strong> 25/02/2025<br>📚 <strong>Matèria:</strong> M06: Desenvolupament Web Entorn Client<br> Tots els sons i imatges son oficialment de la serie -SpongeBob SquarePants-.";
           icon = "🏆";
           break;
         default:
@@ -109,6 +118,7 @@
 
       messageBox.className = `w3-panel w3-center w3-padding w3-round w3-margin-top w3-light-grey`;
       messageBox.style.display = "block";
+      setTimeout(() => {messageBox.style.display = "none"}, 5000);
 
 
     }
@@ -120,8 +130,13 @@
 
   <header class="w3-container w3-yellow w3-center w3-padding-32">
 
+    <div class="header-content">
+      <img src="img/bob2.png" alt="" class="header-img">
+
       <h1>Benvingut al Joc de Spongebob</h1>
 
+      <img src="img/bob.png" alt="" class="header-img">
+    </div>
 
     <div class="w3-margin-top">
       <button class="w3-button w3-green w3-round w3-large" onclick="showMessage(''); startGame();">Start Game</button>
@@ -129,6 +144,7 @@
       <button class="w3-button w3-orange w3-round w3-large" onclick="showMessage('info')">Informació</button>
       <button class="w3-button w3-purple w3-round w3-large" onclick="showMessage('credits')">Crèdits</button>
     </div>
+
 
   </header>
   <main>
@@ -148,9 +164,37 @@
     <div id="final" class="final w3-center">
       <h2>Final del Joc</h2>
       <p id="final_message">Vols tornar a JUGAR?</p>
-      <button id="restartBtn" class="w3-btn w3-green">Sí, vull jugar de nou</button>
+      <button id="restartBtn" class="w3-btn w3-yellow">Sí, vull jugar de nou</button>
       <button id="exitBtn" class="w3-btn w3-red">No, gràcies</button>
     </div>
+
+    <div id="info" class="w3-center w3-padding w3-margin">
+      <section class="w3-container w3-center w3-padding-32">
+        <h2>🌊 Endinsa't en una Aventura amb en Bob Esponja! 🍍</h2>
+        <p class="w3-large">
+          Benvingut al <strong>Joc de Spongebob</strong>, on viuràs una gran aventura sota el mar. Ajuda a Bob Esponja a <br> recollir la Burger Cangreburger
+          i arribar al <em>Crustacio Cruijiente</em> 🏁
+        </p>
+      </section>
+
+      <!-- Instruccions del joc -->
+      <section class="w3-container w3-white w3-round w3-padding-32 w3-margin-top">
+        <h3 class="w3-center">📜 Com es juga?</h3>
+        <ul class="w3-ul w3-large">
+          <li>🎮 Utilitza les <strong>fletxes del teclat</strong> per moure en Bob Esponja.</li>
+          <li>🍔 Recull la <strong>Burger Cangreburger</strong> per entrar al <em>Crustacio Crujiente.</em></li>
+          <li>⚠️ Evita xocar amb els obstacles.</li>
+          <li>🏆 Arriba al Crustacio Crujiente i guanya la partida!</li>
+          <li>🍔 <strong>Important:</strong> Si no tens la <em>Burger Cangreburger</em>, no podràs entrar al <em>Crustacio Cruijiente</em> i perdràs la partida. 🚪❌</li>
+        </ul>
+      </section>
+    </div>
+
+
+
+
+
+
 
   </main>
 
