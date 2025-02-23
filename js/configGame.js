@@ -1,5 +1,5 @@
 export const configGame = {
-  ROWS:10,
+  ROWS:15,
   COLUMNS:10,
   IMAGE_SIZE:32,
   SPEED_BOB:32,

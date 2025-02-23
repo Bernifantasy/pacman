@@ -82,7 +82,7 @@ function setup() {
 function draw() {
 
   if (gameStarted) {
-    background(171, 248, 168);
+    background(220);
     arrRocks.forEach(rock => rock.showObject(imgRock));
     arrBurger.forEach(burger => burger.showObject(imgBurger));
     arrBar.forEach(bar => bar.showObject(restaurant));
@@ -127,8 +127,9 @@ function draw() {
     
     textSize(20);
     textAlign(CENTER, CENTER);
+    fill(0);
     timer = parseInt( millis() - startTimeGame);
-    text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
+    text("Score: " + myBob.scoreBob, width/2, configGame.HEIGHT_CANVAS -50 );
 
 
   }
