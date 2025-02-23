@@ -95,7 +95,7 @@ function setup() {
         }
       }
     }
-    //startTimeGame = millis();
+    startTimeGame = millis();
   }
 
 }
@@ -125,13 +125,13 @@ function draw() {
         setTimeout(FinishGame, 50);
       }
     }
-/*
+
     textSize(20);
     textAlign(CENTER, CENTER);
     timer = parseInt( millis() - startTimeGame);
     text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
 
- */
+ 
 
     switch (myBob.direction) {
       case 1: //Move right
