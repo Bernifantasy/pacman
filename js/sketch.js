@@ -7,28 +7,7 @@ import {configGame} from "./configGame.js";
 
 let gameStarted = false;
 let gameFinished = false;
-/*
-export const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 3, 2, 4, 1, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 1, 1, 1, 1, 1, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
 
-
-const ROWS = 10;
-const COLUMNS = 10;
-export const IMAGE_SIZE = 32;
-export const WIDTH_CANVAS = COLUMNS * IMAGE_SIZE;
-export const HEIGHT_CANVAS = ROWS * IMAGE_SIZE;
-
- */
 
 let imgRock;
 let imgBurger;
@@ -39,8 +18,8 @@ let restaurant;
 let myBob;
 let BobSound;
 let key=0;
-//let startTimeGame=0;
-//let timer=0;
+let startTimeGame=0;
+let timer=0;
 
 const arrRocks = [];
 const arrBurger = [];
@@ -126,11 +105,6 @@ function draw() {
       }
     }
 
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    timer = parseInt( millis() - startTimeGame);
-    text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
-
  
 
     switch (myBob.direction) {
@@ -149,6 +123,13 @@ function draw() {
       default :
         myBob.showObject(imgBobUP);
     }
+
+    
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    timer = parseInt( millis() - startTimeGame);
+    text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
+
 
   }
 }
