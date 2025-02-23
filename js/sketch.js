@@ -53,6 +53,7 @@ function handleSoundError() {
 
 function setup() {
   if (gameStarted) {
+    console.log("Setup ejecutado")
     createCanvas(configGame.WIDTH_CANVAS, configGame.HEIGHT_CANVAS).parent("sketch-pacman");
     for (let filaActual = 0; filaActual < configGame.ROWS; filaActual++) {
       for (let columnActual = 0; columnActual < configGame.COLUMNS; columnActual++) {
@@ -82,6 +83,7 @@ function setup() {
 function draw() {
 
   if (gameStarted) {
+    console.log("Dibujando...")
     background(220);
     arrRocks.forEach(rock => rock.showObject(imgRock));
     arrBurger.forEach(burger => burger.showObject(imgBurger));
@@ -172,18 +174,17 @@ function FinishGame() {
 
 function restartGame() {
   gameFinished = false;
+  gameStarted = false;
   arrRocks.length = 0;
   arrBurger.length = 0;
   arrBar.length = 0;
   key=0;
-  gameStarted = false;
   myBob.scoreBob = 0;
-  startTimeGame = millis();
   document.getElementById("final").style.display = "none";
-  setTimeout(() => { startGame();}, 100);
-
+  startGame();
 }
 function startGame() {
+  console.log("Iniciando juego...")
   document.getElementById("info").style.display = "none";
   gameStarted = true;
   setup();
