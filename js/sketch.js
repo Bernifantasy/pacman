@@ -175,12 +175,17 @@ function restartGame() {
   arrRocks.length = 0;
   arrBurger.length = 0;
   arrBar.length = 0;
-  startGame();
+  key=0;
+  gameStarted = false;
+  myBob.scoreBob = 0;
+  startTimeGame = millis();
   document.getElementById("final").style.display = "none";
+  setTimeout(() => { startGame();}, 100);
+
 }
 function startGame() {
-  gameStarted = true;
   document.getElementById("info").style.display = "none";
+  gameStarted = true;
   setup();
   loop();
 }
