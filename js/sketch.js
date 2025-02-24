@@ -7,28 +7,7 @@ import {configGame} from "./configGame.js";
 
 let gameStarted = false;
 let gameFinished = false;
-/*
-export const map = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 3, 2, 4, 1, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-  [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-  [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-  [1, 0, 1, 1, 1, 1, 1, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
 
-
-const ROWS = 10;
-const COLUMNS = 10;
-export const IMAGE_SIZE = 32;
-export const WIDTH_CANVAS = COLUMNS * IMAGE_SIZE;
-export const HEIGHT_CANVAS = ROWS * IMAGE_SIZE;
-
- */
 
 let imgRock;
 let imgBurger;
@@ -39,8 +18,8 @@ let restaurant;
 let myBob;
 let BobSound;
 let key=0;
-//let startTimeGame=0;
-//let timer=0;
+let startTimeGame=0;
+let timer=0;
 
 const arrRocks = [];
 const arrBurger = [];
@@ -74,6 +53,7 @@ function handleSoundError() {
 
 function setup() {
   if (gameStarted) {
+    console.log("Setup ejecutado")
     createCanvas(configGame.WIDTH_CANVAS, configGame.HEIGHT_CANVAS).parent("sketch-pacman");
     for (let filaActual = 0; filaActual < configGame.ROWS; filaActual++) {
       for (let columnActual = 0; columnActual < configGame.COLUMNS; columnActual++) {
@@ -95,15 +75,15 @@ function setup() {
         }
       }
     }
-    //startTimeGame = millis();
   }
-
+  startTimeGame = millis();
 }
 
 function draw() {
 
   if (gameStarted) {
-    background(171, 248, 168);
+    console.log("Dibujando...")
+    background(220);
     arrRocks.forEach(rock => rock.showObject(imgRock));
     arrBurger.forEach(burger => burger.showObject(imgBurger));
     arrBar.forEach(bar => bar.showObject(restaurant));
@@ -125,13 +105,12 @@ function draw() {
         setTimeout(FinishGame, 50);
       }
     }
-/*
+
     textSize(20);
     textAlign(CENTER, CENTER);
     timer = parseInt( millis() - startTimeGame);
-    text("Score: " + myBob.scoreBob, 150, configGame.HEIGHT_CANVAS + 50);
-
- */
+    text("Score: " + myBob.scoreBob, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -50 );
+    text("Time: " + timer, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -20 );
 
     switch (myBob.direction) {
       case 1: //Move right
@@ -154,18 +133,19 @@ function draw() {
 }
 
 function keyPressed() {
-  if(keyCode === RIGHT_ARROW) {
-    myBob.moveRight();
-  }else if(keyCode === LEFT_ARROW) {
-    myBob.moveLeft();
-  }else if(keyCode === UP_ARROW) {
-    myBob.moveUp();
-  }else if(keyCode === DOWN_ARROW) {
-    myBob.moveDown();
-  }
-  else{
-    let error= new ErrorBob(11, "Tecla no valida");
-    error.showError();
+  if (gameStarted) {
+    if (keyCode === RIGHT_ARROW) {
+      myBob.moveRight();
+    } else if (keyCode === LEFT_ARROW) {
+      myBob.moveLeft();
+    } else if (keyCode === UP_ARROW) {
+      myBob.moveUp();
+    } else if (keyCode === DOWN_ARROW) {
+      myBob.moveDown();
+    } else {
+      let error = new ErrorBob(11, "Tecla no valida");
+      error.showError();
+    }
   }
 }
 
@@ -177,25 +157,17 @@ function FinishGame() {
   const finalDiv = document.getElementById("final");
   const finalMessage = document.getElementById("final_message");
 
-  let message = arrBurger.length === 0 ? "Has guanyat. Desitja jugar una altra partida?" : "Has perdut. Desitja jugar una altra partida?";
+  let message = arrBurger.length === 0 ? "Has guanyat" : "Has perdut";
 
   finalMessage.textContent = message;
   finalDiv.style.display = "block";
 
-  document.getElementById("restartBtn").addEventListener("click", restartGame);
   document.getElementById("exitBtn").addEventListener("click", () => {window.location.href = "../index.html";});
 }
 
-
-function restartGame() {
-  gameFinished = false;
-  arrRocks.length = 0;
-  arrBurger.length = 0;
-  arrBar.length = 0;
-  startGame();
-  document.getElementById("final").style.display = "none";
-}
 function startGame() {
+  console.log("Iniciando juego...")
+  document.getElementById("info").style.display = "none";
   gameStarted = true;
   setup();
   loop();

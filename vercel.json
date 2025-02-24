@@ -5,15 +5,19 @@
       "use": "@vercel/static"
     },
     {
-      "src": "js/sketch.js",
+      "src": "js/**",
       "use": "@vercel/static"
     },
     {
-      "src": "css/style.css",
+      "src": "img/**",
       "use": "@vercel/static"
     },
     {
-      "src": "/docs/index.html",
+      "src": "css/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "/docs/**/*",
       "use": "@vercel/static"
     }
   ],
