@@ -75,9 +75,8 @@ function setup() {
         }
       }
     }
-    startTimeGame = millis();
   }
-
+  startTimeGame = millis();
 }
 
 function draw() {
@@ -107,7 +106,11 @@ function draw() {
       }
     }
 
- 
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    timer = parseInt( millis() - startTimeGame);
+    text("Score: " + myBob.scoreBob, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -50 );
+    text("Time: " + timer, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -20 );
 
     switch (myBob.direction) {
       case 1: //Move right
@@ -125,14 +128,6 @@ function draw() {
       default :
         myBob.showObject(imgBobUP);
     }
-
-    
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    fill(0);
-    timer = parseInt( millis() - startTimeGame);
-    text("Score: " + myBob.scoreBob, width/2, configGame.HEIGHT_CANVAS -50 );
-
 
   }
 }
@@ -162,27 +157,14 @@ function FinishGame() {
   const finalDiv = document.getElementById("final");
   const finalMessage = document.getElementById("final_message");
 
-  let message = arrBurger.length === 0 ? "Has guanyat. Desitja jugar una altra partida?" : "Has perdut. Desitja jugar una altra partida?";
+  let message = arrBurger.length === 0 ? "Has guanyat" : "Has perdut";
 
   finalMessage.textContent = message;
   finalDiv.style.display = "block";
 
-  document.getElementById("restartBtn").addEventListener("click", restartGame);
   document.getElementById("exitBtn").addEventListener("click", () => {window.location.href = "../index.html";});
 }
 
-
-function restartGame() {
-  gameFinished = false;
-  gameStarted = false;
-  arrRocks.length = 0;
-  arrBurger.length = 0;
-  arrBar.length = 0;
-  key=0;
-  myBob.scoreBob = 0;
-  document.getElementById("final").style.display = "none";
-  startGame();
-}
 function startGame() {
   console.log("Iniciando juego...")
   document.getElementById("info").style.display = "none";
