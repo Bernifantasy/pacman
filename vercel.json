@@ -5,6 +5,22 @@
       "use": "@vercel/static"
     },
     {
+      "src": "login.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "register.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "perfil.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "ranking.html",
+      "use": "@vercel/static"
+    },
+    {
       "src": "js/**",
       "use": "@vercel/static"
     },
