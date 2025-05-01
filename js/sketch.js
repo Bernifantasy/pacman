@@ -1,13 +1,13 @@
-import {Burger} from "./clases/Burger.js";
-import {SpongeBob} from "./clases/SpongeBob.js";
-import {Roca} from "./clases/Roca.js";
-import {Bar} from "./clases/Bar.js";
-import {ErrorBob} from "./clases/errorBob.js";
-import {configGame} from "./configGame.js";
+import { Burger } from "./clases/Burger.js";
+import { SpongeBob } from "./clases/SpongeBob.js";
+import { Roca } from "./clases/Roca.js";
+import { Bar } from "./clases/Bar.js";
+import { ErrorBob } from "./clases/errorBob.js";
+import { ConfigGameClass } from "./configGameClass.js";
+const configGame = new ConfigGameClass();
 
 let gameStarted = false;
 let gameFinished = false;
-
 
 let imgRock;
 let imgBurger;
@@ -17,33 +17,33 @@ let imgBobLEFT;
 let restaurant;
 let myBob;
 let BobSound;
-let key=0;
-let startTimeGame=0;
-let timer=0;
+let menjarSound;
+let key = 0;
+let startTimeGame = 0;
+let timer = 0;
 
 const arrRocks = [];
 const arrBurger = [];
 const arrBar = [];
 
 function preload() {
-  imgRock = loadImage("../img/roca.png", handleImage, handleError);
-  imgBurger = loadImage("../img/food.png", handleImage, handleError);
-  imgBobUP = loadImage("../img/bobUP.png", handleImage, handleError);
-  imgBobLEFT = loadImage("../img/bobLEFT.png", handleImage, handleError);
-  imgBobRIGHT = loadImage("../img/bobRIGHT.png", handleImage, handleError);
-  restaurant = loadImage("../img/bar.png", handleImage, handleError);
-  BobSound = loadSound("../img/move.mp3", null, handleSoundError);
+  (imgRock = loadImage("../img/roca.png", handleImage, handleError)),
+    (imgBurger = loadImage("../img/food.png", handleImage, handleError)),
+    (imgBobUP = loadImage("../img/bobUP.png", handleImage, handleError)),
+    (imgBobLEFT = loadImage("../img/bobLEFT.png", handleImage, handleError)),
+    (imgBobRIGHT = loadImage("../img/bobRIGHT.png", handleImage, handleError)),
+    (restaurant = loadImage("../img/bar.png", handleImage, handleError)),
+    (BobSound = loadSound("../img/caminar.mp3", null, handleSoundError)),
+    (menjarSound = loadSound("../img/menjar.mp3", null, handleSoundError));
 }
 
 function handleError() {
   let error = new ErrorBob(10, "Imatge no carregada");
   error.showError();
-
 }
 
 function handleImage() {
   //No fico res, per no mostrar coses a la consola, per a que el public no ho vegi.
-
 }
 
 function handleSoundError() {
@@ -53,23 +53,35 @@ function handleSoundError() {
 
 function setup() {
   if (gameStarted) {
-    console.log("Setup ejecutado")
-    createCanvas(configGame.WIDTH_CANVAS, configGame.HEIGHT_CANVAS).parent("sketch-pacman");
-    for (let filaActual = 0; filaActual < configGame.ROWS; filaActual++) {
-      for (let columnActual = 0; columnActual < configGame.COLUMNS; columnActual++) {
-        let mapa = configGame.map[filaActual][columnActual];
+    console.log("Setup ejecutado");
+    createCanvas(configGame.widthCanvas, configGame.heightCanvas).parent(
+      "sketch-pacman"
+    );
+    for (let filaActual = 0; filaActual < configGame.rows; filaActual++) {
+      for (
+        let columnActual = 0;
+        columnActual < configGame.columns;
+        columnActual++
+      ) {
+        const mapa = configGame.map[filaActual][columnActual];
         if (mapa === 1) {
-          const roca = new Roca(filaActual, columnActual);
+          const roca = new Roca(filaActual, columnActual, configGame);
           arrRocks.push(roca);
-        } else if (mapa=== 2) {
-          const burger = new Burger(filaActual, columnActual);
+        } else if (mapa === 2) {
+          const burger = new Burger(filaActual, columnActual, configGame);
           arrBurger.push(burger);
         } else if (mapa === 3) {
-          myBob = new SpongeBob(filaActual, columnActual, BobSound);
+          myBob = new SpongeBob(filaActual, columnActual, BobSound, configGame);
         } else if (mapa === 4) {
-          const bar = new Bar(filaActual, columnActual);
+          const bar = new Bar(filaActual, columnActual, configGame);
           arrBar.push(bar);
-        }else if (mapa !== 1 && mapa !== 2 && mapa !== 3 && mapa !== 4 && mapa !== 0) {
+        } else if (
+          mapa !== 1 &&
+          mapa !== 2 &&
+          mapa !== 3 &&
+          mapa !== 4 &&
+          mapa !== 0
+        ) {
           let error = new ErrorBob(1, "Objecte no definit");
           error.showError();
         }
@@ -80,17 +92,17 @@ function setup() {
 }
 
 function draw() {
-
   if (gameStarted) {
-    console.log("Dibujando...")
+    console.log("Dibujando...");
     background(220);
-    arrRocks.forEach(rock => rock.showObject(imgRock));
-    arrBurger.forEach(burger => burger.showObject(imgBurger));
-    arrBar.forEach(bar => bar.showObject(restaurant));
-    arrRocks.forEach(rock => myBob.testCollideRock(rock));
+    arrRocks.forEach((rock) => rock.showObject(imgRock));
+    arrBurger.forEach((burger) => burger.showObject(imgBurger));
+    arrBar.forEach((bar) => bar.showObject(restaurant));
+    arrRocks.forEach((rock) => myBob.testCollideRock(rock));
 
     for (let i = arrBurger.length - 1; i >= 0; i--) {
       if (myBob.testCollideBurger(arrBurger[i])) {
+        menjarSound.play();
         arrBurger.splice(i, 1);
         key = 1;
         myBob.scoreBob = myBob.scoreBob + 10;
@@ -109,8 +121,20 @@ function draw() {
     textSize(20);
     textAlign(CENTER, CENTER);
     timer = parseInt( millis() - startTimeGame);
-    text("Score: " + myBob.scoreBob, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -50 );
-    text("Time: " + timer, configGame.WIDTH_CANVAS/2, configGame.HEIGHT_CANVAS -20 );
+    if (timer > configGame.maxTime) {
+      FinishGame();
+      return;
+    }
+    text(
+      "Score: " + myBob.scoreBob,
+      configGame.widthCanvas / 2,
+      configGame.heightCanvas - 50
+    );
+    text(
+      "Time: " + timer,
+      configGame.widthCanvas / 2,
+      configGame.heightCanvas - 20
+    );
 
     switch (myBob.direction) {
       case 1: //Move right
@@ -121,14 +145,13 @@ function draw() {
         break;
       case 3: //Move left
         myBob.showObject(imgBobLEFT);
-        break
+        break;
       case 4: //Move down
         myBob.showObject(imgBobUP);
         break;
-      default :
+      default:
         myBob.showObject(imgBobUP);
     }
-
   }
 }
 
@@ -148,34 +171,70 @@ function keyPressed() {
     }
   }
 }
-
 function FinishGame() {
-  if(gameFinished) return;
+  if (gameFinished) return;
   gameFinished = true;
   noLoop();
 
   const finalDiv = document.getElementById("final");
+  const titol_message = document.getElementById("titol_message");
   const finalMessage = document.getElementById("final_message");
 
-  let message = arrBurger.length === 0 ? "Has guanyat" : "Has perdut";
+  let message;
+  if (arrBurger.length === 0) {
+    message = "Has guanyat el nivell!";
+    if (configGame.level < 3) {
+      configGame.loadLevel(configGame.level + 1);
+      setTimeout(() => {
+        resetGame();
+        loop();
+      }, 2000);
+    } else {
+      message = "🏆 Has completat tots els nivells!";
+      setTimeout(() => {
+        exitGame();
+      }, 2000);
+        
 
-  finalMessage.textContent = message;
+    }
+  } else {
+    message = "Has perdut";
+    finalMessage.style.display = "none";
+  }
+
+  titol_message.textContent = message;
   finalDiv.style.display = "block";
 
-  document.getElementById("exitBtn").addEventListener("click", () => {window.location.href = "../index.html";});
+  document.getElementById("exitBtn").addEventListener("click", () => {
+    window.location.href = "../index.html";
+  });
+}
+
+function exitGame()
+{
+  window.location.href = "../index.html";
+}
+
+function resetGame() {
+  arrRocks.length = 0;
+  arrBurger.length = 0;
+  arrBar.length = 0;
+  key = 0;
+  gameFinished = false;
+  document.getElementById("final").style.display = "none";
+  setup();
 }
 
 function startGame() {
-  console.log("Iniciando juego...")
+  console.log("Iniciando juego...");
   document.getElementById("info").style.display = "none";
   gameStarted = true;
   setup();
   loop();
 }
 
-
 globalThis.setup = setup;
 globalThis.draw = draw;
 globalThis.preload = preload;
-globalThis.keyPressed= keyPressed;
+globalThis.keyPressed = keyPressed;
 globalThis.startGame = startGame;

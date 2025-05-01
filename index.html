@@ -1,32 +1,25 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="ca">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Joc de Spongebob</title>
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
-
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
-
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
   <script src="js/libraries/p5/p5.js"></script>
   <script type="module" src="js/libraries/p5/addons/p5.sound.js"></script>
   <script type="module" src="js/sketch.js"></script>
 
   <style>
-    html, body {
+    html,
+    body {
       height: 100%;
       margin: 0;
       display: flex;
@@ -38,9 +31,11 @@
       justify-content: space-between;
       align-items: center;
     }
-    img{
+
+    img {
       height: 100px;
     }
+
     main {
       flex: 1;
     }
@@ -49,32 +44,27 @@
       margin-top: auto;
     }
 
-    .error-box{
+    .error-box,
+    .final {
       display: none;
       position: absolute;
-      top:35%;
-      left:45%;
+      top: 35%;
+      left: 37%;
+      text-align: center;
+      z-index: 100;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .error-box {
       background-color: red;
       color: white;
-      text-align: center;
-      z-index: 100;
-      padding: 30px;
-      border-radius: 10px;
     }
 
-    .final{
-      display: none;
-      position: absolute;
-      top:35%;
-      left:37%;
+    .final {
       background-color: #9981ee;
       color: white;
-      text-align: center;
-      z-index: 100;
-      padding: 30px;
-      border-radius: 10px;
     }
-
   </style>
 
   <script>
@@ -108,7 +98,6 @@
           icon = "🏆";
           break;
         default:
-          message = "";
           messageBox.style.display = "none";
           return;
       }
@@ -118,39 +107,39 @@
 
       messageBox.className = `w3-panel w3-center w3-padding w3-round w3-margin-top w3-light-grey`;
       messageBox.style.display = "block";
-      setTimeout(() => {messageBox.style.display = "none"}, 5000);
-
-
+      setTimeout(() => { messageBox.style.display = "none" }, 5000);
     }
   </script>
-
 </head>
 
 <body>
 
   <header class="w3-container w3-yellow w3-center w3-padding-32">
-
     <div class="header-content">
       <img src="img/bob2.png" alt="" class="header-img">
-
       <h1>Benvingut al Joc de Spongebob</h1>
-
       <img src="img/bob.png" alt="" class="header-img">
     </div>
 
-    <div class="w3-margin-top">
-      <button class="w3-button w3-green w3-round w3-large" onclick="showMessage(''); startGame();">Start Game</button>
+    <!-- Menu -->
+    <div class="w3-margin-top" id="menu-buttons">
+      <button class="w3-button w3-green w3-round w3-large" onclick="startGame();" id="startGameBtn">Start Game</button>
       <button class="w3-button w3-blue w3-round w3-large" onclick="showMessage('help')">Help</button>
       <button class="w3-button w3-orange w3-round w3-large" onclick="showMessage('info')">Informació</button>
       <button class="w3-button w3-purple w3-round w3-large" onclick="showMessage('credits')">Crèdits</button>
+
+      <a href="ranking.html" class="w3-button w3-indigo w3-round w3-large" id="rankingBtn" style="display:none;">Ranking</a>
+      <a href="perfil.html" class="w3-button w3-cyan w3-round w3-large" id="profileBtn" style="display:none;">Perfil</a>
+      <button class="w3-button w3-red w3-round w3-large" id="logoutBtn" style="display:none;">Logout</button>
+      <a href="login.html" class="w3-button w3-blue w3-round w3-large" id="loginBtn">Login</a>
+
+      <div class="w3-margin-top"><span id="usernameDisplay"></span></div>
     </div>
-
-
   </header>
-  <main>
 
+  <main>
     <div id="message-box" class="w3-panel w3-padding w3-round w3-margin-top w3-center" style="display: none;">
-      <span id="message-icon" class=" w3-center w3-xlarge"></span>
+      <span id="message-icon" class="w3-center w3-xlarge"></span>
       <p id="message-text" class="w3-center"></p>
     </div>
 
@@ -162,39 +151,78 @@
     </div>
 
     <div id="final" class="final w3-center">
-      <h2>Final del Joc</h2>
-      <p id="final_message">Gracies per jugar</p>
+      <h2 id="titol_message"></h2>
+      <p id="final_message">Enhorabona! Has ajudat en Bob Esponja a portar la Burger Cangreburger al Crustaci Crujient!</p>
       <button id="exitBtn" class="w3-btn w3-red">Tornar a INICI</button>
     </div>
+    
 
-    <div id="info" class="w3-center w3-padding w3-margin">
-      <section class="w3-container w3-center w3-padding-32">
+    <section class="w3-container w3-center w3-padding-32" id="info">
+      <div>
         <h2>🌊 Endinsa't en una Aventura amb en Bob Esponja! 🍍</h2>
         <p class="w3-large">
-          Benvingut al <strong>Joc de Spongebob</strong>, on viuràs una gran aventura sota el mar. Ajuda a Bob Esponja a <br> recollir la Burger Cangreburger
+          Benvingut al <strong>Joc de Spongebob</strong>, on viuràs una gran aventura sota el mar. Ajuda a Bob Esponja a
+          <br> recollir la Burger Cangreburger
           i arribar al <em>Crustacio Cruijiente</em> 🏁
         </p>
-      </section>
+      </div>
 
-      <!-- Instruccions del joc -->
-      <section class="w3-container w3-white w3-round w3-padding-32 w3-margin-top">
+      <div>
         <h3 class="w3-center">📜 Com es juga?</h3>
         <ul class="w3-ul w3-large">
           <li>🎮 Utilitza les <strong>fletxes del teclat</strong> per moure en Bob Esponja.</li>
           <li>🍔 Recull la <strong>Burger Cangreburger</strong> per entrar al <em>Crustacio Crujiente.</em></li>
           <li>⚠️ Evita xocar amb els obstacles.</li>
           <li>🏆 Arriba al Crustacio Crujiente i guanya la partida!</li>
-          <li>🍔 <strong>Important:</strong> Si no tens la <em>Burger Cangreburger</em>, no podràs entrar al <em>Crustacio Cruijiente</em> i perdràs la partida. 🚪❌</li>
+          <li>🍔 <strong>Important:</strong> Si no tens la <em>Burger Cangreburger</em>, no podràs entrar al
+            <em>Crustacio Crujiente</em> i perdràs la partida. 🚪❌
+          </li>
         </ul>
-      </section>
-    </div>
-
+      </div>
+    </section>
   </main>
 
   <footer class="w3-container w3-yellow w3-center w3-padding-16">
     <p>&copy; 2025 - Joc de Spongebob | Creat per Bernat Alvarez Borrell</p>
   </footer>
 
+  <script type="module">
+    import { auth } from './js/auth.js';
+    window.auth = auth;
+
+    const startGame = document.getElementById('startGameBtn');
+    const rankingBtn = document.getElementById('rankingBtn');
+    const profileBtn = document.getElementById('profileBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const loginBtn = document.getElementById('loginBtn');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+
+    const currentUser = auth.currentUser();
+    const logged = auth.isAuthenticated();
+
+    if (logged) {
+      startGame.style.display = "inline-block";
+      rankingBtn.style.display = "inline-block";
+      profileBtn.style.display = "inline-block";
+      logoutBtn.style.display = "inline-block";
+      loginBtn.style.display = "none";
+      if (usernameDisplay && currentUser) {
+        usernameDisplay.textContent = `Hola, ${currentUser.username}`;
+      }
+    } else {
+      startGame.style.display = "none";
+      rankingBtn.style.display = "none";
+      profileBtn.style.display = "none";
+      logoutBtn.style.display = "none";
+      loginBtn.style.display = "inline-block";
+    }
+
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      auth.logout();
+      window.location.href = 'index.html';
+    });
+  </script>
 </body>
 
 </html>

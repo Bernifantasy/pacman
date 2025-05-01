@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<body class=" w3-light-grey">
+
+    <header class="w3-container w3-yellow w3-center w3-padding-32">
+        <div class="header-content">
+            <img src="img/bob2.png" height="100px" alt="" class="header-img">
+            <h1>Benvingut al Joc de Spongebob</h1>
+            <img src="img/bob.png" height="100px" alt="" class="header-img">
+        </div>
+
+        <!-- Menu -->
+        <div class="w3-margin-top" id="menu-buttons">
+            <a href="index.html" class="w3-button w3-green w3-round w3-large">Inici</a>
+        </div>
+    </header>
+
+    <div class="w3-card-4 w3-white w3-margin-top w3-padding" style="max-width: 400px; margin: auto;">
+        <h2 class="w3-center">Inicia sessió</h2>
+        <form id="loginForm" class="w3-container">
+            <label>Usuari</label>
+            <input class="w3-input w3-margin-bottom" id="username" required>
+
+            <label>Contrasenya</label>
+            <input class="w3-input w3-margin-bottom" type="password" id="password" required>
+
+            <div id="loginError" class="w3-text-red w3-small w3-margin-bottom" style="display: none;"></div>
+
+            <button class="w3-button w3-blue w3-block" type="submit">Entrar</button>
+        </form>
+        <div class="w3-center w3-margin-top">
+            <p>No tens compte? <a href="register.html">Registra’t</a></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth } from './js/auth.js';
+
+        document.getElementById('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const errorDiv = document.getElementById('loginError');
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            // Netejar missatges d'error previs
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            usernameInput.classList.remove('w3-border-red');
+            passwordInput.classList.remove('w3-border-red');
+
+            if (auth.login(username, password)) {
+                window.location.href = 'index.html';
+            } else {
+                errorDiv.textContent = 'Usuari o contrasenya incorrectes!';
+                errorDiv.style.display = 'block';
+                usernameInput.classList.add('w3-border-red');
+                passwordInput.classList.add('w3-border-red');
+            }
+        });
+    </script>
+</body>
+
+</html>

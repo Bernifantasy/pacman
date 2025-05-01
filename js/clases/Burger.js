@@ -15,8 +15,8 @@ export class Burger extends gameObject{
    * @param {number} row - La fila donde se coloca la comida en la cuadrícula.
    * @param {number} column - La columna donde se coloca la comida en la cuadrícula.
    */
-  constructor(row,column) {
-    super(row,column);
+  constructor(row,column,config) {
+    super(row,column,config);
     this.pointsfood = 10;
   }
 }
