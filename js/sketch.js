@@ -6,9 +6,10 @@ import { ErrorBob } from "./clases/errorBob.js";
 import { ConfigGameClass } from "./configGameClass.js";
 const configGame = new ConfigGameClass();
 
+//Variables
+
 let gameStarted = false;
 let gameFinished = false;
-
 let imgRock;
 let imgBurger;
 let imgBobUP;
@@ -22,10 +23,12 @@ let key = 0;
 let startTimeGame = 0;
 let timer = 0;
 
+//Arrays
 const arrRocks = [];
 const arrBurger = [];
 const arrBar = [];
 
+//Carregar imatges i so
 function preload() {
   (imgRock = loadImage("../img/roca.png", handleImage, handleError)),
     (imgBurger = loadImage("../img/food.png", handleImage, handleError)),
@@ -51,18 +54,13 @@ function handleSoundError() {
   error.showError();
 }
 
+//Funcio per iniciar el joc i crear el canvas
 function setup() {
   if (gameStarted) {
     console.log("Setup ejecutado");
-    createCanvas(configGame.widthCanvas, configGame.heightCanvas).parent(
-      "sketch-pacman"
-    );
+    createCanvas(configGame.widthCanvas, configGame.heightCanvas).parent("sketch-pacman");
     for (let filaActual = 0; filaActual < configGame.rows; filaActual++) {
-      for (
-        let columnActual = 0;
-        columnActual < configGame.columns;
-        columnActual++
-      ) {
+      for (let columnActual = 0;columnActual < configGame.columns;columnActual++) {
         const mapa = configGame.map[filaActual][columnActual];
         if (mapa === 1) {
           const roca = new Roca(filaActual, columnActual, configGame);
@@ -75,13 +73,7 @@ function setup() {
         } else if (mapa === 4) {
           const bar = new Bar(filaActual, columnActual, configGame);
           arrBar.push(bar);
-        } else if (
-          mapa !== 1 &&
-          mapa !== 2 &&
-          mapa !== 3 &&
-          mapa !== 4 &&
-          mapa !== 0
-        ) {
+        } else if ( mapa !== 1 && mapa !== 2 && mapa !== 3 && mapa !== 4 && mapa !== 0) {
           let error = new ErrorBob(1, "Objecte no definit");
           error.showError();
         }
@@ -91,6 +83,7 @@ function setup() {
   startTimeGame = millis();
 }
 
+//Funcio per dibuixar el joc i mostrar els objectes
 function draw() {
   if (gameStarted) {
     console.log("Dibujando...");
@@ -171,6 +164,8 @@ function keyPressed() {
     }
   }
 }
+
+//Funcio per mostrar el missatge de final del joc i reiniciar el joc si es guanya o es perd
 function FinishGame() {
   if (gameFinished) return;
   gameFinished = true;
@@ -210,11 +205,12 @@ function FinishGame() {
   });
 }
 
+//Funcio per tancar el joc i tornar a la pagina principal
 function exitGame()
 {
   window.location.href = "../index.html";
 }
-
+//Funcio per reiniciar el joc i tornar a la pantalla inicial
 function resetGame() {
   arrRocks.length = 0;
   arrBurger.length = 0;
@@ -224,7 +220,7 @@ function resetGame() {
   document.getElementById("final").style.display = "none";
   setup();
 }
-
+// Funcio per iniciar el joc i amagar la pantalla inicial
 function startGame() {
   console.log("Iniciando juego...");
   document.getElementById("info").style.display = "none";

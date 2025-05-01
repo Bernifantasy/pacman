@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Circle.html#calculateCircumference">calculateCircumference</a></li><li data-type='method'><a href="Circle.html#getCircumference">getCircumference</a></li><li data-type='method'><a href="Circle.html#toString">toString</a></li><li data-type='method'><a href="Circle.html#.fromDiameter">fromDiameter</a></li></ul></li><li><a href="Food.html">Food</a><ul class='methods'><li data-type='method'><a href="Food.html#showObject">showObject</a></li></ul></li><li><a href="Pacman.html">Pacman</a><ul class='methods'><li data-type='method'><a href="Pacman.html#moveDown">moveDown</a></li><li data-type='method'><a href="Pacman.html#moveLeft">moveLeft</a></li><li data-type='method'><a href="Pacman.html#moveRight">moveRight</a></li><li data-type='method'><a href="Pacman.html#moveUp">moveUp</a></li><li data-type='method'><a href="Pacman.html#showObject">showObject</a></li><li data-type='method'><a href="Pacman.html#spawnPacman">spawnPacman</a></li><li data-type='method'><a href="Pacman.html#testCollideFood">testCollideFood</a></li><li data-type='method'><a href="Pacman.html#testCollideRock">testCollideRock</a></li></ul></li><li><a href="gameObject.html">gameObject</a><ul class='methods'><li data-type='method'><a href="gameObject.html#showObject">showObject</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#printCircle">printCircle</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bar.html">Bar</a><ul class='methods'><li data-type='method'><a href="Bar.html#showObject">showObject</a></li></ul></li><li><a href="Burger.html">Burger</a><ul class='methods'><li data-type='method'><a href="Burger.html#showObject">showObject</a></li></ul></li><li><a href="Circle.html">Circle</a><ul class='methods'><li data-type='method'><a href="Circle.html#calculateCircumference">calculateCircumference</a></li><li data-type='method'><a href="Circle.html#getCircumference">getCircumference</a></li><li data-type='method'><a href="Circle.html#toString">toString</a></li><li data-type='method'><a href="Circle.html#.fromDiameter">fromDiameter</a></li></ul></li><li><a href="ConfigGameClass.html">ConfigGameClass</a><ul class='methods'><li data-type='method'><a href="ConfigGameClass.html#getMap">getMap</a></li><li data-type='method'><a href="ConfigGameClass.html#loadLevel">loadLevel</a></li></ul></li><li><a href="ErrorBob.html">ErrorBob</a><ul class='methods'><li data-type='method'><a href="ErrorBob.html#showError">showError</a></li></ul></li><li><a href="Roca.html">Roca</a><ul class='methods'><li data-type='method'><a href="Roca.html#showObject">showObject</a></li></ul></li><li><a href="SpongeBob.html">SpongeBob</a><ul class='methods'><li data-type='method'><a href="SpongeBob.html#moveDown">moveDown</a></li><li data-type='method'><a href="SpongeBob.html#moveLeft">moveLeft</a></li><li data-type='method'><a href="SpongeBob.html#moveRight">moveRight</a></li><li data-type='method'><a href="SpongeBob.html#moveUp">moveUp</a></li><li data-type='method'><a href="SpongeBob.html#showObject">showObject</a></li><li data-type='method'><a href="SpongeBob.html#spawnBob">spawnBob</a></li><li data-type='method'><a href="SpongeBob.html#testCollideBar">testCollideBar</a></li><li data-type='method'><a href="SpongeBob.html#testCollideBurger">testCollideBurger</a></li><li data-type='method'><a href="SpongeBob.html#testCollideRock">testCollideRock</a></li></ul></li><li><a href="gameObject.html">gameObject</a><ul class='methods'><li data-type='method'><a href="gameObject.html#showObject">showObject</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#printCircle">printCircle</a></li></ul>
     
 </nav>
 
@@ -53,8 +53,9 @@
         
         </h2>
         
-            <div class="class-description usertext"><p>Clase base para todos los objetos del juego.
-Define la posición en la cuadrícula y en píxeles.</p></div>
+            <div class="class-description usertext"><p>Classe base per a tots els objectes del joc posicionats en la graella.
+Gestiona la posició (fila i columna), així com les coordenades en píxels.</p>
+<p>Aquesta classe és pensada per ser estesa per altres elements del joc, com personatges o objectes.</p></div>
         
     
 </header>
@@ -69,7 +70,7 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="gameObject"><span class="type-signature"></span>new gameObject<span class="signature">(row, col)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="gameObject"><span class="type-signature"></span>new gameObject<span class="signature">(row, col, config)</span><span class="type-signature"></span></h4>
 
     
 
@@ -79,13 +80,13 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Crea una instancia de gameObject.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Crea una nova instància de gameObject.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="gameObject.js.html">gameObject.js</a>, <a href="gameObject.js.html#line10">line 10</a>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -109,7 +110,7 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>moi</li>
+            <li>Bernat Alvarez Borrell</li>
         </ul>
     </dd>
     
@@ -181,7 +182,7 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 
             
 
-            <td class="description last"><p>Número de fila en la cuadrícula.</p></td>
+            <td class="description last"><p>Número de fila on es col·loca l'objecte dins la graella.</p></td>
         </tr>
 
     
@@ -205,7 +206,31 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 
             
 
-            <td class="description last"><p>Número de columna en la cuadrícula.</p></td>
+            <td class="description last"><p>Número de columna on es col·loca l'objecte dins la graella.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Configuració global del joc, conté paràmetres com la mida de les imatges.</p></td>
         </tr>
 
     
@@ -254,6 +279,365 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="columnNumber"><span class="type-signature"></span>columnNumber<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="config"><span class="type-signature"></span>config<span class="type-signature"> :object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="coordXpixel"><span class="type-signature"></span>coordXpixel<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="coordYpixel"><span class="type-signature"></span>coordYpixel<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="rowNumber"><span class="type-signature"></span>rowNumber<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -273,13 +657,14 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Muestra el objeto en la pantalla con la imagen proporcionada.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Mostra l'objecte a la pantalla utilitzant una imatge.
+Si les coordenades en píxels no estan definides, les calcula automàticament.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="gameObject.js.html">gameObject.js</a>, <a href="gameObject.js.html#line33">line 33</a>
+        <a href="clases_gameObject.js.html">clases/gameObject.js</a>, <a href="clases_gameObject.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -368,7 +753,7 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 
             
 
-            <td class="description last"><p>Imagen del objeto a renderizar.</p></td>
+            <td class="description last"><p>La imatge que es mostrarà per representar l'objecte.</p></td>
         </tr>
 
     
@@ -413,7 +798,7 @@ Define la posición en la cuadrícula y en píxeles.</p></div>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Feb 17 2025 15:57:34 GMT+0100 (hora estándar de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Thu May 01 2025 22:48:49 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

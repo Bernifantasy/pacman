@@ -5,7 +5,7 @@ import {gameObject} from "./gameObject.js";
  * Extiende `gameObject` y define el valor en puntos de la comida.
  *
  * @extends gameObject
- * @author moi
+ * @author Bernat Alvarez Borrell
  */
 
 export class Burger extends gameObject{
