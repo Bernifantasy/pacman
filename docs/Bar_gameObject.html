@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>circle.js - Documentation</title>
+    <title>gameObject - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,82 +35,222 @@
 
 <div id="main">
     
-    <h1 class="page-title">circle.js</h1>
+    <h1 class="page-title">gameObject</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>class Circle {
-  /**
-   * Creates an instance of Circle.
-   *
-   * @author moi
-   * @param {number} r The desired radius of the circle.
-   */
-  constructor(r) {
-    /** @private */ this.radius = r
-    /** @private */ this.circumference = 2 * Math.PI * r
-  }
+        <h2>
+            <span class="ancestors"><a href="Bar.html">Bar</a>#</span>
+        
+        
+            gameObject
+        
+        </h2>
+        
+    
+</header>
 
-  /**
-   * Creates a new Circle from a diameter.
-   *
-   * @param {number} d The desired diameter of the circle.
-   * @return {Circle} The new Circle object.
-   */
-  static fromDiameter(d) {
-    return new Circle(d / 2)
-  }
+<article>
+    
+        <div class="container-overview">
+        
+            
 
-  /**
-   * Calculates the circumference of the Circle.
-   *
-   * @deprecated since 1.1.0; use getCircumference instead
-   * @return {number} The circumference of the circle.
-   */
-  calculateCircumference() {
-    return 2 * Math.PI * this.radius
-  }
+    
 
-  /**
-   * Returns the pre-computed circumference of the Circle.
-   *
-   * @return {number} The circumference of the circle.
-   * @since 1.1.0
-   */
-  getCircumference() {
-    return this.circumference
-  }
+    <h4 class="name" id="gameObject"><span class="type-signature"></span>new gameObject<span class="signature">(row, col)</span><span class="type-signature"></span></h4>
 
-  /**
-   * Find a String representation of the Circle.
-   *
-   * @override
-   * @return {string} Human-readable representation of this Circle.
-   */
-  toString() {
-    return `[A Circle object with radius of ${this.radius}.]`
-  }
-}
+    
 
-/**
- * Prints a circle.
- *
- * @param {Circle} circle
- */
-function printCircle(circle) {
-  /** @this {Circle} */
-  function bound() { console.log(this) }
-  bound.apply(circle)
-}
-</code></pre>
-        </article>
-    </section>
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Crea una instancia de gameObject.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="gameObject.js.html">gameObject.js</a>, <a href="gameObject.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="gameObject_gameObject.html">gameObject#gameObject</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>row</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Número de fila en la cuadrícula.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>col</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Número de columna en la cuadrícula.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
